@@ -7,37 +7,16 @@ function clearSpan() {
   }
 }
 
-// Expressão regular foi vista na página: https://pt.stackoverflow.com/questions/58498/se-input-tiver-apenas-espa%C3%A7os-em-branco-n%C3%A3o-fazer-nada
-function emptyInput(input) {
-  if (input === '' || input.match(/^(\s)+$/)) {
-    paragraph.innerHTML = 'Por favor, digite o conteúdo da carta.';
+const paragraphCount = document.createElement('p');
+paragraphCount.id = 'carta-contador';
+document.body.appendChild(paragraphCount);
+function count(array) {
+  if (array.length === 1) {
+    paragraphCount.innerHTML = array.length;
   } else {
-    const array = input.split(' ');
-    paragraph.innerHTML = '';
-    for (let index = 0; index < array.length; index += 1) {
-      const word = document.createElement('span');
-      word.innerHTML = array[index];
-      paragraph.appendChild(word);
-    }
-    count(array);
+    paragraphCount.innerHTML = array.length;
   }
-  const spans = document.querySelectorAll('span');
-  randomClass(spans);
 }
-
-const btnGenerate = document.querySelector('#criar-carta');
-const paragraph = document.querySelector('#carta-gerada');
-btnGenerate.addEventListener('click', () => {
-  const input = document.querySelector('#carta-texto').value;
-  clearSpan();
-  emptyInput(input);
-  //console.log(paragraph);
-});
-
-const entries = document.querySelector('#carta-texto');
-entries.addEventListener('click', () => {
-  entries.value = '';
-});
 
 const styles = ['newspaper', 'magazine1', 'magazine2'];
 const size = ['medium', 'big', 'reallybig'];
@@ -56,28 +35,49 @@ function randomClass(spans) {
   }
 }
 
-paragraph.addEventListener('click', (event) => {
- if (event.target.className.includes('text-container')) {
-} else {
-   event.target.className = '';
-   const numberStyle = parseInt(Math.random() * 3, 10);
-   const numberSize = parseInt(Math.random() * 3, 10);
-   const numberRotation = parseInt(Math.random() * 2, 10);
-   const numberInclination = parseInt(Math.random() * 2, 10);
-   event.target.classList.add(styles[numberStyle]);
-   event.target.classList.add(size[numberSize]);
-   event.target.classList.add(rotation[numberRotation]);
-   event.target.classList.add(inclination[numberInclination]);
- }
-})
-
-let  paragraphCount = document.createElement('p');
-paragraphCount.id = 'carta-contador';
-document.body.appendChild(paragraphCount);
-function count(array) {
-  if (array.length === 1){
-    paragraphCount.innerHTML = array.length;
+// Expressão regular foi vista na página: https://pt.stackoverflow.com/questions/58498/se-input-tiver-apenas-espa%C3%A7os-em-branco-n%C3%A3o-fazer-nada
+const paragraph = document.querySelector('#carta-gerada');
+function emptyInput(input) {
+  if (input === '' || input.match(/^(\s)+$/)) {
+    paragraph.innerHTML = 'Por favor, digite o conteúdo da carta.';
   } else {
-    paragraphCount.innerHTML = array.length;
+    const array = input.split(' ');
+    paragraph.innerHTML = '';
+    for (let index = 0; index < array.length; index += 1) {
+      const word = document.createElement('span');
+      word.innerHTML = array[index];
+      paragraph.appendChild(word);
+    }
+    count(array);
   }
+  const spans = document.querySelectorAll('span');
+  randomClass(spans);
 }
+
+const btnGenerate = document.querySelector('#criar-carta');
+btnGenerate.addEventListener('click', () => {
+  const input = document.querySelector('#carta-texto').value;
+  clearSpan();
+  emptyInput(input);
+  // console.log(paragraph);
+});
+
+const entries = document.querySelector('#carta-texto');
+entries.addEventListener('click', () => {
+  entries.value = '';
+});
+
+paragraph.addEventListener('click', (event) => {
+  const evt = event;
+  if (!evt.target.className.includes('text-container')) {
+    evt.target.className = '';
+    const numberStyle = parseInt(Math.random() * 3, 10);
+    const numberSize = parseInt(Math.random() * 3, 10);
+    const numberRotation = parseInt(Math.random() * 2, 10);
+    const numberInclination = parseInt(Math.random() * 2, 10);
+    evt.target.classList.add(styles[numberStyle]);
+    evt.target.classList.add(size[numberSize]);
+    evt.target.classList.add(rotation[numberRotation]);
+    evt.target.classList.add(inclination[numberInclination]);
+  }
+});
