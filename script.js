@@ -7,10 +7,15 @@ function clearSpan() {
   }
 }
 
+const div = document.querySelector('#count');
 const paragraphCount = document.createElement('p');
 paragraphCount.id = 'carta-contador';
-document.body.appendChild(paragraphCount);
+const text = document.createElement('p');
+text.id = 'texto';
+div.appendChild(text);
+div.appendChild(paragraphCount);
 function count(array) {
+  text.innerHTML = 'A quantidades de palavras é ';
   if (array.length === 1) {
     paragraphCount.innerHTML = array.length;
   } else {
