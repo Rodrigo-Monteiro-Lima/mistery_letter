@@ -19,6 +19,7 @@ function emptyInput(input) {
       word.innerHTML = array[index];
       paragraph.appendChild(word);
     }
+    count(array);
   }
   const spans = document.querySelectorAll('span');
   randomClass(spans);
@@ -69,3 +70,14 @@ paragraph.addEventListener('click', (event) => {
    event.target.classList.add(inclination[numberInclination]);
  }
 })
+
+let  paragraphCount = document.createElement('p');
+paragraphCount.id = 'carta-contador';
+document.body.appendChild(paragraphCount);
+function count(array) {
+  if (array.length === 1){
+    paragraphCount.innerHTML = array.length;
+  } else {
+    paragraphCount.innerHTML = array.length;
+  }
+}
