@@ -17,7 +17,6 @@ function emptyInput(input) {
     for (let index = 0; index < array.length; index += 1) {
       const word = document.createElement('span');
       word.innerHTML = array[index];
-      word.className = 'spans';
       paragraph.appendChild(word);
     }
   }
@@ -31,6 +30,7 @@ btnGenerate.addEventListener('click', () => {
   const input = document.querySelector('#carta-texto').value;
   clearSpan();
   emptyInput(input);
+  //console.log(paragraph);
 });
 
 const entries = document.querySelector('#carta-texto');
@@ -54,3 +54,18 @@ function randomClass(spans) {
     spans[index].classList.add(inclination[numberInclination]);
   }
 }
+
+paragraph.addEventListener('click', (event) => {
+ if (event.target.className.includes('text-container')) {
+} else {
+   event.target.className = '';
+   const numberStyle = parseInt(Math.random() * 3, 10);
+   const numberSize = parseInt(Math.random() * 3, 10);
+   const numberRotation = parseInt(Math.random() * 2, 10);
+   const numberInclination = parseInt(Math.random() * 2, 10);
+   event.target.classList.add(styles[numberStyle]);
+   event.target.classList.add(size[numberSize]);
+   event.target.classList.add(rotation[numberRotation]);
+   event.target.classList.add(inclination[numberInclination]);
+ }
+})
